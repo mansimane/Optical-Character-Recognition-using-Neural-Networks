@@ -10,7 +10,11 @@ assert(size(b{1},2) == 1, 'W{end} must be of size [H,1]');
 assert(size(W{end},1) == C, 'W{end} must be of size [C,H]');
 
 % Your code here
+% Cx1 : softmax output
+for i = 1:D 
+    [o, act_a, act_p ]= Forward(W, b, data(i,:));
+    outputs(i,:) = o';
 
-
+end
 assert(all(size(outputs) == [D,C]), 'output must be of size [D,C]');
 end

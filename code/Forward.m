@@ -23,11 +23,9 @@ for i=1:length(W)
 end
 
 % Last activation softmax instead of sigmoid
-
-
-
-
-
+e = exp(act_a{length(W)});
+act_h{length(W)} = e ./ sum(e); 
+output = act_h{length(W)};
 
 assert(all(size(act_a{1}) == [H,1]), 'act_a{1} must be of size [H,1]');
 assert(all(size(act_h{end}) == [C,1]), 'act_h{end} must be of size [C,1]');

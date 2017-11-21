@@ -13,4 +13,7 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 %Your code here
 
 
+
+
+
 end
