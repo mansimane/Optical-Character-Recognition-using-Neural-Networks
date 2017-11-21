@@ -15,6 +15,19 @@ assert(size(b{1},2) == 1, 'b{end} must be of size [H,1]');
 assert(size(W{end},1) == C, 'W{end} must be of size [C,H]');
 
 % Your code here
+inp = X;
+for i=1:length(W)
+    act_a{i} = W{i}*inp + b{i};  
+    act_h{i} = sigmoid(act_a{i});
+    inp = act_h{i};
+end
+
+% Last activation softmax instead of sigmoid
+
+
+
+
+
 
 assert(all(size(act_a{1}) == [H,1]), 'act_a{1} must be of size [H,1]');
 assert(all(size(act_h{end}) == [C,1]), 'act_h{end} must be of size [C,1]');
