@@ -21,16 +21,17 @@ assert(all(size(act_h{end}) == [C,1]), 'act_h{end} must be of size [C,1]');
 no_of_layers = length(W);
 
 %Softmax loss
-d = act_h{end} - Y; 
-grad_W{no_of_layers} = d * act_h{no_of_layers-1} ;
-grad_b{no_of_layers} = d;
-for i = no_of_layers:1
-    
-
-
-
-
-
+d{no_of_layers} = act_h{end} - Y; 
+grad_W{no_of_layers} = d{no_of_layers} * act_h{no_of_layers-1}' ;
+grad_b{no_of_layers} = d{no_of_layers};
+for i = no_of_layers-1:1
+    d{i} = sigmoid_grad(act_h{i}) .* (W{i+1} * d{i+1});
+    grad_b{i} = d{i};
+    if (i>1)
+        grad_W{i} = d{i} * act_h{i-1}'; % HxN = Hx1 * 1xN
+    else
+        grad_W{i} = d{i} * X';
+    end
 
 
 

@@ -4,17 +4,17 @@ function [W, b] = InitializeNetwork(layers)
 % size OUTPUT, and HIDDEN number of hidden units.
 % It should return the cell arrays 'W' and 'b' which contain the randomly
 % initialized weights and biases for this neural network.
-
+%layers = [N, H, C]
 % Your code here
 
 H = layers(2);  %Number of hidden layers
 
-for i=1:len(layers)-1
+for i=1:length(layers)-1
     N = layers(i);
     H = layers(i+1);  %Number of hidden layers
 
-    W{1} = normrnd(0,2.0/(H+N),[H,N]);
-    b{1} = normrnd(0,1.0/(H),[H,1]);
+    W{i} = normrnd(0,2.0/(H+N),[H,N]);
+    b{i} = normrnd(0,1.0/(H),[H,1]);
     
 end
 

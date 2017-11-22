@@ -8,10 +8,13 @@ assert(length(b{1}) == length(grad_b{1}),'Size of b and grad_b should be equal')
 assert(length(b{end}) == length(grad_b{end}),'Size of b and grad_b should be equal');
 
 %Your code
-
-
+for i=1:length(W)
+    W{i} = W{i} - (learning_rate * grad_W{i});
+    b{i} = b{i} - (learning_rate * grad_b{i});
+end
 
 assert(size(W{1},1) == size(grad_W{1},1) & size(W{1},2) == size(grad_W{1},2),'Size should not change after updates');
 assert(length(b{1}) == length(grad_b{1}),'Size should not change after updates');
+
 end
 

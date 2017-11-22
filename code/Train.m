@@ -16,8 +16,11 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 
 
 for i = 1:size(train_data,1)
-
-
+    X = train_data(i,:);
+    Y = train_label(i,:);
+    [output, act_h, act_a] = Forward(W, b, X);
+    [grad_W, grad_b] = Backward(W, b, X, Y, act_h, act_a);
+    [W, b] = UpdateParameters(W, b, grad_W, grad_b, learning_rate);
 
     if mod(i, 100) == 0
         fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
