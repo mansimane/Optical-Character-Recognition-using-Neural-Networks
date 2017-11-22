@@ -11,9 +11,14 @@ assert(size(b{end},2) == 1, 'b{end} must be of size [~,1]');
 assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 
 %Your code here
+[D,C] = size(labels);
+
+[outputs] = Classify(W, b, data);
+[pred_val, pred_idx] = max(outputs);
+[cor_val, cor_idx] = max(labels);
 
 
-
-
+loss = -sum(log(outputs(:,cor_idx)));
+accuracy = double(pred_idx == cor_idx)/D;
 
 end

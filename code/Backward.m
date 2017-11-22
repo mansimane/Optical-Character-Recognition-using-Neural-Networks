@@ -18,6 +18,25 @@ assert(all(size(act_h{end}) == [C,1]), 'act_h{end} must be of size [C,1]');
 
 
 % Your code here
+no_of_layers = length(W);
+
+%Softmax loss
+d = act_h{end} - Y; 
+grad_W{no_of_layers} = d * act_h{no_of_layers-1} ;
+grad_b{no_of_layers} = d;
+for i = no_of_layers:1
+    
+
+
+
+
+
+
+
+
+
+
+end
 assert(size(grad_W{1},2) == N, 'grad_W{1} must be of size [H,N]');
 assert(size(grad_W{end},1) == C, 'grad_W{end} must be of size [C,N]');
 assert(size(grad_b{1},1) == H, 'grad_b{1} must be of size [H,1]');
