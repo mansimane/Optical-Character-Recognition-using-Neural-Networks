@@ -1,3 +1,5 @@
+clear
+close all
 num_epoch = 30;
 classes = 26;
 layers = [32*32, 400, classes];
