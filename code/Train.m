@@ -15,7 +15,7 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 % Feel free to use it or discard it
 
 
-for i = 1:size(train_data,1)
+for i = 1:size(train_data,1)    %Shuffle data
     X = train_data(i,:)';   %Nx1
     Y = train_label(i,:)';
     [output, act_h, act_a] = Forward(W, b, X);
@@ -23,11 +23,11 @@ for i = 1:size(train_data,1)
     [W, b] = UpdateParameters(W, b, grad_W, grad_b, learning_rate);
 
     if mod(i, 100) == 0
-        fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
-        fprintf('Done %.2f %%', i/size(train_data,1)*100)
+        %fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
+        %fprintf('Done %.2f %%', i/size(train_data,1)*100)
     end
 end
-fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
+%fprintf('\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b')
 
 
 end

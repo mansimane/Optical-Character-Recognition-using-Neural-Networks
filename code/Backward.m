@@ -32,7 +32,7 @@ for i = no_of_layers-1:1
     else
         grad_W{i} = d{i} * X';
     end
-
+    grad_b{i} = d{i};
 
 
 
