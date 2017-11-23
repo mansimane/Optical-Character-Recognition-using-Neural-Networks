@@ -13,6 +13,8 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,H]');
 % Cx1 : softmax output
 for i = 1:D 
     [o, act_a, act_p ]= Forward(W, b, data(i,:)');
+    [~,idx] = max(o);
+    idx
     outputs(i,:) = o';
 
 end

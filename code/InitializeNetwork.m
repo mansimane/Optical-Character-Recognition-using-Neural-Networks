@@ -12,8 +12,8 @@ H = layers(2);  %Number of hidden layers
 for i=1:length(layers)-1
     N = layers(i);
     H = layers(i+1);  %Number of hidden layers
-
-    W{i} = normrnd(0,2.0/(H+N),[H,N]);
+    W{i} = normrnd(0,0.01,[H,N]);
+    %W{i} = normrnd(0,2.0/(H+N),[H,N]);
 %    b{i} = normrnd(0,1.0/(H),[H,1]);
     b{i} = zeros(H,1);
     

@@ -14,6 +14,11 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 % This loop template simply prints the loop status in a non-verbose way.
 % Feel free to use it or discard it
 
+% vec = randperm(N,K)
+[D,N] = size(train_data);
+vec = randperm(D,D);
+train_data = train_data(vec,:);
+train_label = train_label(vec,:);
 
 for i = 1:size(train_data,1)    %Shuffle data
     X = train_data(i,:)';   %Nx1

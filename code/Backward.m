@@ -24,7 +24,9 @@ no_of_layers = length(W);
 d{no_of_layers} = act_h{end} - Y; 
 grad_W{no_of_layers} = d{no_of_layers} * (act_h{no_of_layers-1}') ;%26x400 = 26x1 * 1x400
 grad_b{no_of_layers} = d{no_of_layers};
-for i = no_of_layers-1:1
+for i = no_of_layers-1:-1:1
+    
+    
     d{i} = sigmoid_grad(act_h{i}) .* (W{i+1}' * d{i+1});
     grad_b{i} = d{i};
     if (i>1)
@@ -38,6 +40,29 @@ for i = no_of_layers-1:1
 
 
 end
+
+% d{no_of_layers} = act_h{end} - Y; 
+% grad_W{no_of_layers} = d{no_of_layers} * (act_h{no_of_layers-1}') ;%26x400 = 26x1 * 1x400
+% grad_b{no_of_layers} = d{no_of_layers};
+% for i = no_of_layers: -1: 1
+%     disp(i)
+% %     if (i==no_of_layers)
+% %         d{i} = act_h{i} - act_h{i} .* Y / (Y' * act_h{i});         
+% %     else
+% %         d{i} = sigmoid_grad(act_h{i}) .* (W{i+1}' * d{i+1});
+% %     end
+% %     
+% %     
+% %     if (i>1)
+% %         grad_W{i} = d{i} * act_h{i-1}'; % HxN = Hx1 * 1xN
+% %     else
+% %         grad_W{i} = d{i} * X';
+% %     end
+% %     grad_b{i} = d{i};
+% % 
+% end
+
+
 assert(size(grad_W{1},2) == N, 'grad_W{1} must be of size [H,N]');
 assert(size(grad_W{end},1) == C, 'grad_W{end} must be of size [C,N]');
 assert(size(grad_b{1},1) == H, 'grad_b{1} must be of size [H,1]');

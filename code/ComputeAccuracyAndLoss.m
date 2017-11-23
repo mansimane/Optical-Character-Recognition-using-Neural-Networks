@@ -17,9 +17,10 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,~]');
 [pred_val, pred_idx] = max(outputs, [], 2);
 [cor_val, cor_idx] = max(labels, [], 2);
 
-sub2ind(size(outputs), 1:length(cor_idx), cor_idx');
+%sub2ind(size(outputs), 1:length(cor_idx), cor_idx');
 cor_prob = outputs(sub2ind(size(outputs), 1:length(cor_idx), cor_idx'));
 loss = -sum(log(cor_prob));
+loss = loss/D;
 accuracy = sum(double(pred_idx == cor_idx))/D;
 
 end
