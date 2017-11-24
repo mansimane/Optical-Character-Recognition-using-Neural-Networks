@@ -10,6 +10,38 @@ function [lines, bw] = findLetters(im)
 
 
 %Your code here
+img_gray = rgb2gray(im);
+sigma = 3;
+%bw_g = imgaussfilt(img_gray, sigma);
+bw_bin = imcomplement(imbinarize(img_gray));
+CC = bwconncomp(bw_bin);
+num_objs = CC.NumObjects;
+close all;
+imshow(bw_bin);
+hold on;
+numPixels = cellfun(@numel,CC.PixelIdxList);
+
+
+for i = 1:num_objs
+    if numPixels(i) < 400
+        continue
+    end
+        
+    [row,col] = ind2sub(size(bw_bin), CC.PixelIdxList{i});
+    x1 = min(row);
+    y1 = min(col);
+    x2 = max(row);
+    y2 = max(col);
+    
+    fprintf('%d\t %d\t %d\t %d\n ',x1,y1,x2,y2)
+    rec_h = x2 - x1;
+    rec_w = y2 - y1;    
+    rectangle('Position', [y1, x1, rec_w, rec_h ], 'LineWidth', 4, 'EdgeColor', 'r' );
+    
+    
+    
+end
+
 
 
 assert(size(lines{1},2) == 4,'each matrix entry should have size Lx4');

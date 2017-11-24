@@ -3,4 +3,8 @@ function [text] = extractImageText(fname)
 % and returns the next contained in the image as a string.
 
 
+
+
+
+
 end
