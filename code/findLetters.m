@@ -11,19 +11,22 @@ function [lines, bw] = findLetters(im)
 
 %Your code here
 img_gray = rgb2gray(im);
-sigma = 3;
-%bw_g = imgaussfilt(img_gray, sigma);
-bw_bin = imcomplement(imbinarize(img_gray));
+sigma = 2;
+bw_g = imgaussfilt(img_gray, sigma);
+bw = imbinarize(bw_g);
+bw_bin = imcomplement(bw);
 CC = bwconncomp(bw_bin);
 num_objs = CC.NumObjects;
-close all;
-imshow(bw_bin);
-hold on;
+% close all;
+% imshow(bw_bin);
+% hold on;
+
 numPixels = cellfun(@numel,CC.PixelIdxList);
 
-
+lines = {};
+letters = [];
 for i = 1:num_objs
-    if numPixels(i) < 400
+    if numPixels(i) < 600
         continue
     end
         
@@ -33,15 +36,32 @@ for i = 1:num_objs
     x2 = max(row);
     y2 = max(col);
     
-    fprintf('%d\t %d\t %d\t %d\n ',x1,y1,x2,y2)
-    rec_h = x2 - x1;
-    rec_w = y2 - y1;    
-    rectangle('Position', [y1, x1, rec_w, rec_h ], 'LineWidth', 4, 'EdgeColor', 'r' );
-    
-    
+    %fprintf('%d\t %d\t %d\t %d\n ',x1,y1,x2,y2)
+    %rec_h = x2 - x1;
+    %rec_w = y2 - y1;    
+    %rectangle('Position', [y1, x1, rec_w, rec_h ], 'LineWidth', 4, 'EdgeColor', 'r' );
+    letters = [letters; [x1, y1, x2, y2]];
     
 end
 
+[~,idx] = sort(letters(:,1)); % sort just the first column
+sorted_letters = letters(idx,:);   % sort the whole matrix using the sort indices
+for i = 1:size(sorted_letters,1)
+    if length(lines) == 0
+        lines{1} = sorted_letters(i,:);
+        j =1;
+    else
+        x1 = sorted_letters(i,1);
+        if (x1 >= lines{j}(1,1)) && (x1 <= lines{j}(1,3))
+            %Append in existing line
+            lines{j} = [lines{j}; sorted_letters(i,:)];
+        else
+            %New lines
+            j = j + 1;
+            lines{j} = sorted_letters(i,:);
+        end
+    end
+end
 
 
 assert(size(lines{1},2) == 4,'each matrix entry should have size Lx4');

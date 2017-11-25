@@ -17,7 +17,7 @@ assert(size(W{end},1) == C, 'W{end} must be of size [C,H]');
 % Your code here
 inp = X;
 for i=1:length(W)
-    act_a{i} = W{i}*inp + b{i};  %HxN * Nx1 + Hx1 = Hx1
+    act_a{i} = W{i}*double(inp) + b{i};  %HxN * Nx1 + Hx1 = Hx1
     act_h{i} = sigmoid(act_a{i});
     inp = act_h{i};
 end
