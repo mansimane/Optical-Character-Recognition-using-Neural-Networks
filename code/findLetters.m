@@ -20,6 +20,7 @@ num_objs = CC.NumObjects;
 % close all;
 % imshow(bw_bin);
 % hold on;
+off_set = 2;
 
 numPixels = cellfun(@numel,CC.PixelIdxList);
 
@@ -31,11 +32,10 @@ for i = 1:num_objs
     end
         
     [row,col] = ind2sub(size(bw_bin), CC.PixelIdxList{i});
-    x1 = min(row);
-    y1 = min(col);
-    x2 = max(row);
-    y2 = max(col);
-    
+    x1 = min(col) - off_set;
+    x2 = max(col) + off_set;
+    y1 = min(row) - off_set;    %to take some extra space around the letter
+    y2 = max(row) + off_set;
     %fprintf('%d\t %d\t %d\t %d\n ',x1,y1,x2,y2)
     %rec_h = x2 - x1;
     %rec_w = y2 - y1;    
@@ -44,15 +44,15 @@ for i = 1:num_objs
     
 end
 
-[~,idx] = sort(letters(:,1)); % sort just the first column
+[~,idx] = sort(letters(:,2)); % sort just the first column
 sorted_letters = letters(idx,:);   % sort the whole matrix using the sort indices
 for i = 1:size(sorted_letters,1)
     if length(lines) == 0
         lines{1} = sorted_letters(i,:);
         j =1;
     else
-        x1 = sorted_letters(i,1);
-        if (x1 >= lines{j}(1,1)) && (x1 <= lines{j}(1,3))
+        x1 = sorted_letters(i,2);
+        if (x1 >= lines{j}(1,2)) && (x1 <= lines{j}(1,4))
             %Append in existing line
             lines{j} = [lines{j}; sorted_letters(i,:)];
         else
@@ -62,6 +62,14 @@ for i = 1:size(sorted_letters,1)
         end
     end
 end
+
+%Sort lines based on letters sequence
+for i = 1:length(lines)
+    [~,idx] = sort(lines{i}(:,1)); % sort just the second column
+    sorted_letters = lines{i}(idx,:);   % sort the whole matrix using the sort indices
+    lines{i} = sorted_letters;
+end
+
 
 
 assert(size(lines{1},2) == 4,'each matrix entry should have size Lx4');

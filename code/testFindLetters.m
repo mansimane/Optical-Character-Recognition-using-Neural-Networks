@@ -19,7 +19,7 @@ for i= 1:length(file_names)
             y2 = lines{j}(l,4);
             rec_h = x2 - x1;
             rec_w = y2 - y1;   
-            rectangle('Position', [y1, x1, rec_w, rec_h ], 'LineWidth', 3, 'EdgeColor', 'r' );
+            rectangle('Position', [x1, y1, rec_h,rec_w  ], 'LineWidth', 3, 'EdgeColor', 'r' );
             
         end
     end

@@ -17,9 +17,18 @@ function [text] = extractImageText(fname)
             rec_h = x2 - x1;
             rec_w = y2 - y1;   
             %rectangle('Position', [y1, x1, rec_w, rec_h ], 'LineWidth', 3, 'EdgeColor', 'r' );
-            patch = im_gray(x1:x2,y1:y2);
+            patch = bw(y1:y2,x1:x2);
+            %Making square
+            [h, w] = size(patch);
+            high = max(h,w);
+            d = max(high - h, high - w);
+            patch = padarray(patch, [round((high - h)/2), round((high - w)/2)],1,'both' );
+            
+            %Making image centered by adding extra padding 
+            patch = padarray(patch, [7, 7],1,'both' );           
             patch = imresize(patch,[32,32]);
             imshow(patch);
+            
             data = patch(:);
             [outputs] = Classify(W, b, data');
             [pred_val, pred_idx] = max(outputs, [], 2);
