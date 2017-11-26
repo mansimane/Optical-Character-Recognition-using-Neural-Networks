@@ -1,5 +1,6 @@
 %load test data and model for 26 chars
 clear
+close all
 load('nist26_model.mat');
 load('../data/nist26_test.mat', 'test_data', 'test_labels')
 
@@ -18,7 +19,20 @@ for i = 1:D
 end
 imagesc(conf_mat);
 title('Confusion Matrix Plot')
-name = '../results/q3_1_4_conf';
+name = '../results/q3_1_4_conf_color';
 name = strcat(name, '.jpg');
 Image = getframe(gcf);
 imwrite(Image.cdata, name);
+
+
+figure;
+conf_big = imresize(mat2gray(conf_mat), 12, 'nearest' );
+imshow(conf_big);
+
+title('Confusion Matrix Plot')
+name = '../results/q3_1_4_conf_bw';
+name = strcat(name, '.jpg');
+Image = getframe(gcf);
+imwrite(Image.cdata, name);
+
+conf_mat

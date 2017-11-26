@@ -24,7 +24,7 @@ for i= 1:length(file_names)
         end
     end
     %Save image
-    title('Bounding Boxes around Detected Characters');
+    title(file_path_name);
     name = strcat('../results/q4_3_det_char_', num2str(i));
     name = strcat(name, '.jpg');
     Image = getframe(gcf);

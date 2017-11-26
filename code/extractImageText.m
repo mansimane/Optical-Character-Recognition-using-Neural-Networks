@@ -4,7 +4,7 @@ function [text] = extractImageText(fname)
     
     text = '';
     im = imread(fname);
-    alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     [lines, bw] = findLetters(im);  %Train images: black alphabets on white background, same as bw
     load('nist36_model.mat', 'W', 'b');
     im_gray = rgb2gray(im);
@@ -27,7 +27,7 @@ function [text] = extractImageText(fname)
             %Making image centered by adding extra padding 
             patch = padarray(patch, [7, 7],1,'both' );           
             patch = imresize(patch,[32,32]);
-            imshow(patch);
+            %imshow(patch);
             
             data = patch(:);
             [outputs] = Classify(W, b, data');
@@ -38,6 +38,7 @@ function [text] = extractImageText(fname)
         text = strcat(text,'\n');
     end
     imshow(im);
+    fname
     sprintf(text)
     
 

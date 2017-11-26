@@ -1,10 +1,10 @@
 clc
 clear
 close all
-num_epoch = 60;
+num_epoch = 100;
 classes = 26;
 layers = [32*32, 400, classes];
-learning_rate = 0.01;
+learning_rate = 0.001;
 
 load('../data/nist26_train.mat', 'train_data', 'train_labels')
 load('../data/nist26_test.mat', 'test_data', 'test_labels')

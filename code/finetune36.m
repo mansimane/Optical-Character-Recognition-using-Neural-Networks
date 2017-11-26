@@ -1,7 +1,7 @@
 clc
 clear
 close all
-num_epoch = 50;
+num_epoch = 40;
 classes = 36;
 hid_u = 800;
 layers = [32*32, hid_u, classes];
