@@ -1,7 +1,7 @@
 clc
 clear
 close all
-num_epoch = 50;
+num_epoch = 60;
 classes = 26;
 layers = [32*32, 400, classes];
 learning_rate = 0.01;
