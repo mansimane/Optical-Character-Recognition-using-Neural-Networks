@@ -11,8 +11,13 @@ function [lines, bw] = findLetters(im)
 
 %Your code here
 img_gray = rgb2gray(im);
-sigma = 2;
+sigma = 1;
+%bw_g = imgaussfilt(img_gray, sigma);
+% bw_g = imdilate(bw_g, strel('disk', 2));
 bw_g = imgaussfilt(img_gray, sigma);
+se = strel('disk',5);
+bw_g = imerode(bw_g,se);
+
 bw = imbinarize(bw_g);
 bw_bin = imcomplement(bw);
 CC = bwconncomp(bw_bin);
@@ -52,7 +57,7 @@ for i = 1:size(sorted_letters,1)
         j =1;
     else
         x1 = sorted_letters(i,2);
-        if (x1 >= lines{j}(1,2)) && (x1 <= lines{j}(1,4))
+        if (x1 >= (lines{j}(1,2) - 10)) && (x1 <= (lines{j}(1,4)+10))
             %Append in existing line
             lines{j} = [lines{j}; sorted_letters(i,:)];
         else
